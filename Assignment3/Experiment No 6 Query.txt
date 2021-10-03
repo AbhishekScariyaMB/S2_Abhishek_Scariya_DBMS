@@ -1,0 +1,53 @@
+/*EXPERIMENT NO.6 : SET OPERATIONS*/
+
+/1. List all the customers who are depositors but not borrowers./
+SELECT CNAME FROM DEPOSIT  MINUS SELECT CNAME FROM BORROW;
+
+/2. List all the customers who are both depositors and borrowers/
+SELECT CNAME FROM DEPOSIT  UNION  (SELECT CNAME FROM BORROW);
+
+/3. List all the depositors having deposit in all the branches where Sunil is having Account/
+SELECT D1.CNAME FROM DEPOSIT D1 WHERE D1.BNAME IN (SELECT D2.BNAME FROM DEPOSIT D2 WHERE D2.CNAME = 'SUNIL' );
+
+/4. List all the customers living in city NAGPUR and having branch city BOMBAY or DELHI/
+SELECT C1.CNAME FROM CUSTOMER C1,DEPOSIT D1, BRANCH B1 WHERE C1.CITY = 'NAGPUR' AND C1.CNAME = D1.CNAME AND D1.BNAME = B1.BNAME AND B1.CITY IN ('BOMBAY','DELHI');
+
+/5. List all the depositors living in city NAGPUR/
+SELECT Distinct(CUSTOMER.CNAME) from CUSTOMER,DEPOSIT WHERE City='NAGPUR';
+
+/6. List all the depositors living in the city NAGPUR and having branch in city BOMBAY/
+SELECT C1.CNAME FROM CUSTOMER C1,DEPOSIT D1, BRANCH B1 WHERE C1.CITY = 'NAGPUR' AND C1.CNAME = D1.CNAME AND D1.BNAME = B1.BNAME AND B1.CITY IN ('BOMBAY');
+
+/7. List the branch cities of Anil and Sunil/
+SELECT B1.CITY FROM DEPOSIT D1, BRANCH B1 WHERE D1.BNAME = B1.BNAME AND D1.CNAME IN ('SUNIL' ,'ANIL');
+
+/8. List the customers having deposit greater than 1000 and loan less than 10000./
+SELECT DISTINCT D1.CNAME FROM deposit D1, borrow B1 WHERE D1.AMOUNT>1000 AND B1.AMOUNT<10000;
+
+/9. List the cities of depositors having branch VRCE./
+SELECT B1.CITY FROM deposit D1, branch B1 WHERE D1.BNAME=B1.BNAME AND B1.BNAME='VRCE';
+
+/10. List the depositors having amount less than 1000 and living in the same city as Anil/
+SELECT D1.CNAME FROM deposit D1, customer C1 WHERE AMOUNT<1000 AND C1.CITY=(C1.CNAME='ANIL');
+
+/11. List all the cities where branches of Anil and Sunil are locate/
+SELECT B1.CITY FROM BRANCH B1 WHERE B1.BNAME IN (SELECT D1.BNAME FROM DEPOSIT D1 WHERE D1.CNAME IN ('ANIL','SUNIL'));
+
+/12. List the amount for the depositors living in the city where Anil is living/
+SELECT DISTINCT(D1.CNAME),D1.AMOUNT ,C1.CITY FROM deposit D1, CUSTOMER C1, BRANCH B1 WHERE D1.CNAME=C1.CNAME AND C1.CITY IN(SELECT C2.CITY FROM customer C2 WHERE C2.CNAME='ANIL');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
