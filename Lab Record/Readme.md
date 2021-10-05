@@ -1,1 +1,1 @@
-This contains the Lab Record for ADBMS Lab
+This folder contains the Lab Record for ADBMS
